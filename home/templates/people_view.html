@@ -1,0 +1,11 @@
+<h1>People</h1>
+
+{% if people %}
+<ul>
+    {% for person in people %}
+    <li>{{person}}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No people!</p>
+{%endif%}

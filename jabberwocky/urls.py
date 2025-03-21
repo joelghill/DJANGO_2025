@@ -15,8 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import path
 
+from home.views import HomeView, list_people_view
+
+
+def inventory(request, **kwargs):
+    return HttpResponse(f"foo: {kwargs.get('foo')}, bar: {kwargs['bar']}")
+
 urlpatterns = [
+    path("<int:foo>/<str:bar>", inventory),
+    path('', HomeView.as_view()),
     path('admin/', admin.site.urls),
+    path('list_people/', list_people_view)
 ]
