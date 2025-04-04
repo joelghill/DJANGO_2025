@@ -1,17 +1,27 @@
-from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render
-from django.views import View
+from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+
 from home.models.person import Person
 
 
-class HomeView(View):
-    def get(self, request):
-        context = {"username": "guy"}
-
-        return render(request, "hello_world.html", context=context)
+class HomeView(TemplateView):
+    template_name = "hello_world.html"
 
 
-def list_people_view(request: HttpRequest) -> HttpResponse:
-    silly_things = {"people": Person.objects.filter(first_name="Billy")}
+class PeopleView(ListView):
+    paginate_by = 10
+    model = Person
 
-    return render(request, "people_view.html", context=silly_things)
+
+    def get_queryset(self):
+        query_set = super().get_queryset()
+        query = self.request.GET.get("q")
+        if query:
+            query_set = query_set.filter(first_name=query)
+        
+        return query_set
+
+
+class PersonDetailView(DetailView):
+    model = Person
