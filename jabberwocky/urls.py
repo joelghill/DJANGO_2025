@@ -18,11 +18,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from home.views import HomeView, PeopleView, PersonDetailView
+from home.views import HomeView, PeopleView, PersonDetailView, AddressView, AddressListView, AddressDetailView
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("admin/", admin.site.urls),
     path("people/", PeopleView.as_view(), name="people_list"),
     path("people/<int:pk>/", PersonDetailView.as_view(), name="person_details"),
+    path("addresses/create/", AddressView.as_view(), name="create_address"),
+    path("addresses/", AddressListView.as_view(), name="address_list"),
+    path("addresses/<int:pk>/", AddressDetailView.as_view(), name="address_details"),
 ]

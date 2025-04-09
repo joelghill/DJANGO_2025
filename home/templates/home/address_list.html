@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block address_list_active %}active{%endblock%}
+{% block content %}
+<h1>Addresses</h1>
+
+    {% if page_obj %}
+    <ul class="list-group list-group-flush">
+        {% for address in page_obj %}
+        <a href="{% url 'address_details' address.pk %}" class="list-group-item list-group-item-action">{{address.street}}</a>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% else %}
+    <p>No addressed added yet</p>
+    {%endif%}
+{% endblock %}
