@@ -9,8 +9,28 @@
 {% else %}
 <form method="post">
     {%csrf_token%}
-    {{form}}
-    <button class="btn btn-outline-success" type="submit">Search</button>
+    {% for error in form.non_field_errors %}
+    <div class="form-error">{{error}}</div>
+    {% endfor%}
+    <div class="row">
+    <div class="col-12 col-sm-8 mb-3">
+        {% for error in form.street.errors %}
+        <div class="form-error">{{error}}</div>
+        {% endfor%}
+        <label class="form-label" for="{{ form.street.id_for_label }}">Street</label>
+        <input name={{ form.street.html_name }} type="text" id="{{ form.street.id_for_label }}" class="form-control" placeholder="Street Address">
+        <div id="street_help" class="form-text">{{ form.street.help_text }}</div>
+    </div>
+    <div class="col-12 col-sm-4 mb-3">
+        {% for error in form.unit_number.errors %}
+        <div class="form-error">{{error}}</div>
+        {% endfor%}
+        <label class="form-label" for="{{ form.unit_number.id_for_label }}">Unit Number</label>
+        <input name={{ form.unit_number.html_name }} type="text" id="{{ form.unit_number.id_for_label }}" class="form-control" placeholder="Unit Number">
+        <div id="unit_number_help" class="form-text">{{ form.unit_number.help_text }}</div>
+    </div>
+    </div>
+    <button class="btn btn-success" type="submit">Save</button>
 </form>
 {%endif%}
 {% endblock %}
