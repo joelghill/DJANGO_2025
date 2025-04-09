@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from django.views.generic.base import TemplateView, View
+from django.urls import reverse_lazy
+from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, DeleteView, FormView, UpdateView
 from django.views.generic.list import ListView
-from django.views.generic.edit import FormView
 
 from home.forms import AddressForm
 from home.models.person import Person
+
 from .models.address import Address
 
 
@@ -40,6 +42,21 @@ class AddressListView(ListView):
 
 class AddressDetailView(DetailView):
     model = Address
+
+
+class AddressCreateView(CreateView):
+    model = Address
+    fields = ['street', 'unit_number', 'city', 'province', 'postal_code', 'country']
+
+
+class AddressUpdateView(UpdateView):
+    model = Address
+    fields = ['street', 'unit_number', 'city', 'province', 'postal_code', 'country']
+
+
+class AddressDeleteView(DeleteView):
+    model = Address
+    success_url = reverse_lazy("address_list")
 
 
 class AddressView(FormView):

@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block address_list_active %}active{%endblock%}
 {% block content %}
-<h1>Addresses</h1>
+<div class="d-flex flex-row justify-content-between align-items-center p-2">
+    <h1>Addresses</h1>
+    <a href="{% url 'create_address' %}" role="button" class="btn btn-primary">New Address</a>
+</div>
 
     {% if page_obj %}
     <ul class="list-group list-group-flush">
