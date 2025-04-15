@@ -5,14 +5,8 @@
     <title>{% block title %}Django 2025{% endblock %}</title>
     <link href="{% static 'vendor/bootstrap-5.3.5/css/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
 </head>
-<style>
---bs-navbar-active-color: #FF0000;
-:root {
-    --bs-navbar-active-color: #FF0000;
-}
-
-</style>
 <body>
+    {% if request.user.is_authenticated %}
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -41,7 +35,7 @@
             </div>
           </nav>
     </header>
-
+    {% endif %}
     <div class="container">
     {% block content %}
     {% endblock %}

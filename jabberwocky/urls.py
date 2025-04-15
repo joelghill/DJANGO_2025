@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from home.views import (
     AddressCreateView,
@@ -31,6 +31,7 @@ from home.views import (
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
+    path("", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls),
     path("people/", PeopleView.as_view(), name="people_list"),
     path("people/<int:pk>/", PersonDetailView.as_view(), name="person_details"),

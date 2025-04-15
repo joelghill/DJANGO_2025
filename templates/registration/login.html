@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<form method=post>
+    {% csrf_token %}
+
+    {{ form }}
+
+    <button class="btn btn-outline-success" type="submit">Login</button>
+</form>
+
+{% endblock %}
